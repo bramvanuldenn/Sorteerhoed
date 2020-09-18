@@ -1,4 +1,5 @@
 import datetime
+from Sorteerhoed import parsecsv
 
 # De class Afnemer is de persoon die op het moment de applicatie open heeft en de toets maakt.
 # Alleen de naam is nodig voor het aanmaken van deze Class. De Class slaat ook de toetsscores
@@ -11,6 +12,7 @@ class Afnemer:
             "a": 0,
             "b": 0,
             "c": 0,
+            "d": 0,
         }
 
 # Afnemer.addTo("a") - voegt een score van 1 toe aan de Afnemers algemene score.
@@ -21,6 +23,14 @@ class Afnemer:
 # Geeft de score dictionary.
     def return_scores(self):
         return self.scoredict
+
+# Returnt naam String.
+    def return_naam(self):
+        return self.naam
+
+# Schrijft het huidige resultaat op in het CSV bestand.
+    def schrijf_resultaat(self):
+        parsecsv.write_csv(self.scoredict, self.naam)
 
 # De "Vraag" class wordt aangemaakt met een dictionary met antwoorden.
 # De format van de dictionary is: { "specialisatie": "vraag" }
@@ -56,3 +66,12 @@ class Toetsresultaat:
 # Returnt de naam van de afnemer als String.
     def return_naam(self):
         return self.naam
+
+class Systeem():
+    def __init__(self):
+        self.resultaten = parsecsv.read_csv()
+
+
+
+Afnemer = Afnemer("bitch")
+Afnemer.schrijf_resultaat()
