@@ -36,7 +36,15 @@ def read_csv():
     return returndict
 
 
-def read_vragen
-    with open("data/scores.csv", "r") as csvfile:
+def read_vragen():
+    vragen = {}
+    i=0
+    with open("data/vragen.csv", "r") as csvfile:
         reader = csv.reader(csvfile)
-        #TODO
+        next(reader)
+        for row in reader:
+            vragen[i] = row
+    i += 1
+    return vragen
+
+read_vragen()
