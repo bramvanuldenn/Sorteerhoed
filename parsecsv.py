@@ -43,8 +43,8 @@ def read_vragen():
         reader = csv.reader(csvfile)
         next(reader)
         for row in reader:
+            i += 1
             vragen[i] = row
-    i += 1
     return vragen
 
-read_vragen()
+

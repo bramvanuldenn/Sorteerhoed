@@ -20,30 +20,10 @@ class Afnemer:
     def addTo(self, dictKey):
         self.scoredict[dictKey] += 1
 
-# Geeft de score dictionary.
-    def return_scores(self):
-        return self.scoredict
-
-# Returnt naam String.
-    def return_naam(self):
-        return self.naam
-
 # Schrijft het huidige resultaat op in het CSV bestand.
     def schrijf_resultaat(self):
         parsecsv.write_csv(self.scoredict, self.naam)
 
-# De "Vraag" class wordt aangemaakt met een dictionary met antwoorden.
-# De format van de dictionary is: { "specialisatie": "vraag" }
-
-class Vraag:
-    def __init__(self, antwoorddict):
-        self.antwoorddict = {}
-        for a in antwoorddict:
-            self.antwoorddict[a] = a[0]
-
-# Returnt de antwoord dictionary.
-    def return_dict(self):
-        return self.antwoorddict
 
 # De "Toetsresultaat" class wordt gebruikt om oude toetsresultaten op te halen.
 # Bij __init__ zijn nodig: de scoredict(format als Afnemer class), datum als String
@@ -55,23 +35,30 @@ class Toetsresultaat:
         self.datum = datetime.datetime.strptime(datum, "%d/%m/%Y %H:%M:%S")
         self.scoredict = scoredict
 
-# Returnt de score dictionary.
-    def return_scoredict(self):
-        return self.scoredict
 
-# Returnt de datum van afname in datetime formaat.
+# Returnt de datum van afname in string formaat.
     def return_datum(self):
-        return self.datum
+        return self.datum.strftime("%d/%m/%Y %H:%M:%S")
 
-# Returnt de naam van de afnemer als String.
-    def return_naam(self):
-        return self.naam
 
 class Systeem():
     def __init__(self):
-        self.resultaten = parsecsv.read_csv()
+        self.vragen = parsecsv.read_vragen()
+        self.resultaten = {}
+        b = 0
+        parsedData = parsecsv.read_csv()
+        for i in parsedData:
+            a = parsedData[i]
+            scoredict = {
+                "a": a[1],
+                "b": a[2],
+                "c": a[3],
+                "d": a[4],
+            }
+            self.resultaten[b] = Toetsresultaat(scoredict, a[0], i)
+            b += 1
+
+    def return_vraag(self, nummer):
+        return self.vragen[nummer]
 
 
-
-Afnemer = Afnemer("bitch")
-Afnemer.schrijf_resultaat()
