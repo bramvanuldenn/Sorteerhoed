@@ -38,13 +38,15 @@ def read_csv():
 
 def read_vragen():
     vragen = {}
-    i=0
     with open("data/vragen.csv", "r") as csvfile:
         reader = csv.reader(csvfile)
         next(reader)
         for row in reader:
-            i += 1
-            vragen[i] = row
+            vragen[row[0]] = {
+                "BDM": row[1],
+                "FIT": row[2],
+                "SE": row[3],
+                "IT": row[4]
+            }
     return vragen
-
 

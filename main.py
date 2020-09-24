@@ -4,6 +4,7 @@ s = classes.Systeem()
 vragendict = s.vragen
 inputNaam = str(input("Wat is je naam? "))
 afnemer = classes.Afnemer(inputNaam)
+print(s.vragen)
 for i in vragendict:
     v = vragendict[i]
     print(v[0])

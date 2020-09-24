@@ -1,9 +1,12 @@
 import datetime
 from Sorteerhoed import parsecsv
+import random
+
 
 # De class Afnemer is de persoon die op het moment de applicatie open heeft en de toets maakt.
 # Alleen de naam is nodig voor het aanmaken van deze Class. De Class slaat ook de toetsscores
 # in een dictionary op.
+
 
 class Afnemer:
     def __init__(self, naam):
@@ -15,12 +18,12 @@ class Afnemer:
             "d": 0,
         }
 
-# Afnemer.addTo("a") - voegt een score van 1 toe aan de Afnemers algemene score.
-# De argument is een String met als naam de dictionary key van een van de specialisaties.
-    def addTo(self, dictKey):
-        self.scoredict[dictKey] += 1
+    # Voegt een score van 1 toe aan de toegewezen score.
+    # De argument is een String met als naam de dictionary key van een van de specialisaties.
+    def addto(self, dictkey):
+        self.scoredict[dictkey] += 1
 
-# Schrijft het huidige resultaat op in het CSV bestand.
+    # Schrijft het huidige resultaat op in het CSV bestand.
     def schrijf_resultaat(self):
         parsecsv.write_csv(self.scoredict, self.naam)
 
@@ -35,20 +38,20 @@ class Toetsresultaat:
         self.datum = datetime.datetime.strptime(datum, "%d/%m/%Y %H:%M:%S")
         self.scoredict = scoredict
 
+    # Returnt de datum van afname in string formaat.
 
-# Returnt de datum van afname in string formaat.
     def return_datum(self):
         return self.datum.strftime("%d/%m/%Y %H:%M:%S")
 
 
-class Systeem():
+class Systeem:
     def __init__(self):
         self.vragen = parsecsv.read_vragen()
         self.resultaten = {}
         b = 0
-        parsedData = parsecsv.read_csv()
-        for i in parsedData:
-            a = parsedData[i]
+        parseddata = parsecsv.read_csv()
+        for i in parseddata:
+            a = parseddata[i]
             scoredict = {
                 "a": a[1],
                 "b": a[2],
@@ -58,7 +61,20 @@ class Systeem():
             self.resultaten[b] = Toetsresultaat(scoredict, a[0], i)
             b += 1
 
-    def return_vraag(self, nummer):
-        return self.vragen[nummer]
+    def scramble_antwoorden(self):
+        for vraagKey in self.vragen:
+            scrambled = {}
+            antwoordendict = self.vragen[vraagKey]
+            keylist = list(antwoordendict.keys())
+            random.shuffle(keylist)
+            for i in keylist:
+                scrambled.update({i: antwoordendict[i]})
+            self.vragen[vraagKey] = scrambled
 
-
+    def scramble_vragen(self):
+        keylist = list(self.vragen.keys())
+        random.shuffle(keylist)
+        scrambled = {}
+        for i in keylist:
+            scrambled.update({i: self.vragen[i]})
+        self.vragen = scrambled
