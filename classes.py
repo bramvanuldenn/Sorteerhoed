@@ -12,16 +12,16 @@ class Afnemer:
     def __init__(self, naam):
         self.naam = naam
         self.scoredict = {
-            "a": 0,
-            "b": 0,
-            "c": 0,
-            "d": 0,
+            "bdm": 0,
+            "fit": 0,
+            "se": 0,
+            "it": 0,
         }
 
     # Voegt een score van 1 toe aan de toegewezen score.
     # De argument is een String met als naam de dictionary key van een van de specialisaties.
     def addto(self, dictkey):
-        self.scoredict[dictkey] += 1
+        self.scoredict[dictkey.lower()] += 1
 
     # Schrijft het huidige resultaat op in het CSV bestand.
     def schrijf_resultaat(self):
@@ -43,6 +43,12 @@ class Toetsresultaat:
     def return_datum(self):
         return self.datum.strftime("%d/%m/%Y %H:%M:%S")
 
+    # De systeem class onderhoudt als het ware de rest van het programma.
+    # Het hanteert bijvoorbeeld ook de formulier vragen en antwoorden,
+    # en kan ze ook scramblen.
+    # scramble_antwoorden verandert de volgorde van de antwoorden (A/B/C/D)
+    # scramble_vragen verandert de volgorde waarin de vragen geïtereerd worden.
+
 
 class Systeem:
     def __init__(self):
@@ -53,10 +59,10 @@ class Systeem:
         for i in parseddata:
             a = parseddata[i]
             scoredict = {
-                "a": a[1],
-                "b": a[2],
-                "c": a[3],
-                "d": a[4],
+                "BDM": a[1],
+                "FIT": a[2],
+                "SE": a[3],
+                "IT": a[4],
             }
             self.resultaten[b] = Toetsresultaat(scoredict, a[0], i)
             b += 1

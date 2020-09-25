@@ -22,7 +22,7 @@ def write_csv(scores, naam):
         fieldnames = ['naam', 'datum', 'a', 'b', 'c', 'd']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writerow({
-            'naam': naam, 'datum': dateString, 'a': scores['a'], 'b': scores['b'], 'c': scores['c'], 'd': scores['d']
+            'naam': naam, 'datum': dateString, 'a': scores['bdm'], 'b': scores['fit'], 'c': scores['se'], 'it': scores['d']
         })
 
 

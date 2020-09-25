@@ -1,20 +1,26 @@
 from Sorteerhoed import classes
 
 s = classes.Systeem()
-vragendict = s.vragen
 inputNaam = str(input("Wat is je naam? "))
 afnemer = classes.Afnemer(inputNaam)
-print(s.vragen)
-for i in vragendict:
-    v = vragendict[i]
-    print(v[0])
-    print(f"A:{v[1]} B:{v[2]} C:{v[3]} D:{v[4]}")
-    i = str(input()).lower()
-    while i not in "abcd":
-        print("verkeerde input")
-        i = str(input()).lower()
-    afnemer.addTo(i)
+for i in s.vragen:
+    print(i)
+    print(s.vragen[i])
+    a = {
+        "a": 0,
+        "b": 1,
+        "c": 2,
+        "d": 3
+    }
+    inputAntwoord = str(input()).lower()
+    iterdict = iter(s.vragen[i])
+    if inputAntwoord in "abcd":
+        val = a[inputAntwoord]
+        print(val)
+        for i in range(0, val):
+            next(iterdict)
+        a = (next(iterdict))
+        print(a)
+        afnemer.addto(a)
+        print(afnemer.scoredict)
 
-
-
-print(afnemer.scoredict)
