@@ -1,5 +1,5 @@
 import datetime
-from Sorteerhoed import parsecsv
+import parsecsv
 import random
 
 
