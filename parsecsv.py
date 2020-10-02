@@ -2,13 +2,6 @@ import csv
 import os
 from datetime import datetime
 
-scores = {
-    "a": 1,
-    "b": 2,
-    "c": 3,
-    "d": 4,
-}
-naam = "bram van ulden"
 
 def write_csv(scores, naam):
     dateString = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
@@ -21,9 +14,10 @@ def write_csv(scores, naam):
     with open('data/scores.csv', 'a', newline='') as csvfile:
         fieldnames = ['naam', 'datum', 'a', 'b', 'c', 'd']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writerow({
-            'naam': naam, 'datum': dateString, 'a': scores['bdm'], 'b': scores['fit'], 'c': scores['se'], 'it': scores['d']
-        })
+        writedict = {
+            'naam': naam, 'datum': dateString, 'a': scores['bdm'], 'b': scores['fit'], 'c': scores['se'], 'd': scores['git']
+        }
+        writer.writerow(writedict)
 
 
 def read_csv():
@@ -46,7 +40,7 @@ def read_vragen():
                 "BDM": row[1],
                 "FIT": row[2],
                 "SE": row[3],
-                "IT": row[4]
+                "GIT": row[4]
             }
     return vragen
 

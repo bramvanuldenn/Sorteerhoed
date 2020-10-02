@@ -1,5 +1,5 @@
 import datetime
-from Sorteerhoed import parsecsv
+import parsecsv
 import random
 
 
@@ -15,7 +15,7 @@ class Afnemer:
             "bdm": 0,
             "fit": 0,
             "se": 0,
-            "it": 0,
+            "git": 0,
         }
 
     # Voegt een score van 1 toe aan de toegewezen score.
@@ -62,7 +62,7 @@ class Systeem:
                 "BDM": a[1],
                 "FIT": a[2],
                 "SE": a[3],
-                "IT": a[4],
+                "GIT": a[4],
             }
             self.resultaten[b] = Toetsresultaat(scoredict, a[0], i)
             b += 1

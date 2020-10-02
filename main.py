@@ -1,8 +1,9 @@
-from Sorteerhoed import classes
+import classes
 
 s = classes.Systeem()
 inputNaam = str(input("Wat is je naam? "))
 afnemer = classes.Afnemer(inputNaam)
+print(afnemer.scoredict)
 for i in s.vragen:
     print(i)
     print(s.vragen[i])
@@ -14,6 +15,7 @@ for i in s.vragen:
     }
     inputAntwoord = str(input()).lower()
     iterdict = iter(s.vragen[i])
+
     if inputAntwoord in "abcd":
         val = a[inputAntwoord]
         print(val)
@@ -23,4 +25,4 @@ for i in s.vragen:
         print(a)
         afnemer.addto(a)
         print(afnemer.scoredict)
-
+afnemer.schrijf_resultaat()
