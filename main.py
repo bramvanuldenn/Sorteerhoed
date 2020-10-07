@@ -1,6 +1,7 @@
 from classes import *
 from PyQt5 import QtWidgets, uic
 
+# Deze functie vraagt de naam op uit het tekstveld van de GUI
 def naam():
     inputNaam = ui.invoernaam.text()
     return(inputNaam)
