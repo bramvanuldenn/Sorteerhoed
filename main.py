@@ -1,4 +1,3 @@
-import sys
 from classes import *
 from PyQt5 import QtWidgets, uic
 
