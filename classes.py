@@ -47,7 +47,7 @@ class Toetsresultaat:
     # Het hanteert bijvoorbeeld ook de formulier vragen en antwoorden,
     # en kan ze ook scramblen.
     # scramble_antwoorden verandert de volgorde van de antwoorden (A/B/C/D)
-    # scramble_vragen verandert de volgorde waarin de vragen geïtereerd worden.
+    # scramble_vragen verandert de volgorde waarin de vragen geitereerd worden.
 
 
 class Systeem:
