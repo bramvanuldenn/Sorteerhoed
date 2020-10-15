@@ -21,7 +21,7 @@
     <property name="geometry">
      <rect>
       <x>230</x>
-      <y>170</y>
+      <y>310</y>
       <width>131</width>
       <height>40</height>
      </rect>
@@ -43,17 +43,20 @@
     <property name="geometry">
      <rect>
       <x>220</x>
-      <y>215</y>
+      <y>355</y>
       <width>151</width>
       <height>41</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
    </widget>
    <widget class="QPushButton" name="verzendnaam">
     <property name="geometry">
      <rect>
       <x>250</x>
-      <y>270</y>
+      <y>410</y>
       <width>91</width>
       <height>41</height>
      </rect>
@@ -63,6 +66,22 @@
     </property>
     <property name="text">
      <string>Verzenden</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>0</y>
+      <width>331</width>
+      <height>301</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="pixmap">
+     <pixmap>img/sorteerhoed.gif</pixmap>
     </property>
    </widget>
   </widget>
@@ -78,6 +97,8 @@
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
  </widget>
- <resources/>
+ <resources>
+  <include location="resources/images.qrc"/>
+ </resources>
  <connections/>
 </ui>
