@@ -8,8 +8,8 @@ pygame.display.set_caption("SORTEERHOED")
 font = pygame.font.Font("data\dum1.ttf", 10)
 start_surface = pygame.display.set_mode((800, 600))
 background = pygame.Surface((800, 600))
-background.fill(pygame.Color('#000000'))
-
+backgroundimage = pygame.image.load("data\papyrus.png")
+background.blit(backgroundimage, (0,0))
 # manager handled events, gui updates, refreshes etc
 manager = pygame_gui.UIManager((800, 600), "theme.json")
 start = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 250), (100, 50)),
