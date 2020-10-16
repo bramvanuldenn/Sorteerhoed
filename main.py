@@ -2,17 +2,20 @@ import classes
 import pygame
 import pygame_gui
 
+
 pygame.init()
 pygame.display.set_caption("SORTEERHOED")
+font = pygame.font.Font("data\dum1.ttf", 10)
 start_surface = pygame.display.set_mode((800, 600))
 background = pygame.Surface((800, 600))
 background.fill(pygame.Color('#000000'))
 
 # manager handled events, gui updates, refreshes etc
-manager = pygame_gui.UIManager((800, 600))
+manager = pygame_gui.UIManager((800, 600), "theme.json")
 start = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 250), (100, 50)),
                                              text='Start',
-                                             manager=manager)
+                                             manager=manager
+                                            )
 
 otherstart = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 300), (100, 50)),
                                              text='Other Start',

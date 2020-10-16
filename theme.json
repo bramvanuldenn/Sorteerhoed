@@ -1,0 +1,24 @@
+{
+  "label": {
+    "colours": {
+      "dark_bg": "#f2efdc",
+      "normal_text": "#000000"
+    },
+    "font": {
+      "name": "dumbledore1",
+      "size": "25",
+      "regular_path": "data/dum1.ttf"
+    }
+  },
+  "button": {
+    "colours": {
+      "normal_bg": "#f2efdc",
+      "normal_text": "#000000"
+    },
+    "font": {
+      "name": "dumbledore1",
+      "size": "18",
+      "regular_path": "data/dum1.ttf"
+    }
+  }
+}
