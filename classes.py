@@ -84,3 +84,5 @@ class Systeem:
         for i in keylist:
             scrambled.update({i: self.vragen[i]})
         self.vragen = scrambled
+
+
