@@ -2,7 +2,6 @@ import classes
 import pygame
 import pygame_gui
 
-
 pygame.init()
 pygame.display.set_caption("SORTEERHOED")
 font = pygame.font.Font("data\dum1.ttf", 10)
@@ -17,14 +16,6 @@ start = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 250), (100,
                                              manager=manager
                                             )
 
-otherstart = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 300), (100, 50)),
-                                             text='Other Start',
-                                             manager=manager)
-
-ok = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 350), (100, 50)),
-                                             text='Ok',
-                                             manager=manager)
-
 # we cappen de framerate van de GUI om de resources die we nodig hebben te beperken.
 # ook gebruiken veel elementen timers, dus is het handig!
 clock = pygame.time.Clock()
@@ -33,9 +24,37 @@ s = classes.Systeem()
 s.scramble_antwoorden()
 s.scramble_vragen()
 vragendict = iter(s.vragen)
+#deze value staat vast, als je de variable callt gaat de iter niet verder
+vraag = next(vragendict)
+#deze variable is de antwoorden als dictionary
+antwoorden = s.vragen[vraag]
+bdm_antwoord = antwoorden['BDM']
+fit_antwoord = antwoorden['FIT']
+se_antwoord = antwoorden['SE']
+git_antwoord = antwoorden['GIT']
 vraag1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 100), (700, 100)),
-                                        text=next(vragendict),
+                                        text="Welkom! Druk op start om te beginnen.",
                                         manager = manager)
+
+a = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 250), (700, 50)),
+                                             text=bdm_antwoord,
+                                             manager=manager)
+a.hide()
+
+b = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 300), (700, 50)),
+                                             text=fit_antwoord,
+                                             manager=manager)
+b.hide()
+
+c = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 350), (700, 50)),
+                                             text=se_antwoord,
+                                             manager=manager)
+c.hide()
+
+d = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 400), (700, 50)),
+                                             text=git_antwoord,
+                                             manager=manager)
+d.hide()
 
 while is_running:
     # hier slaan we die timer waar ik het net over had op.
@@ -48,11 +67,17 @@ while is_running:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == start:
                     start.hide()
-                    otherstart.show()
-                if event.ui_element == otherstart:
-                    otherstart.hide()
-                    start.show()
-                if event.ui_element == ok:
+                    a.show()
+                    b.show()
+                    c.show()
+                    d.show()
+                    try:
+                        vraag1.set_text(next(vragendict))
+                        vraag1.update(time_delta)
+                    except StopIteration:
+                        vraag1.set_text("geen vragen meer sorry lol")
+                        vraag1.update(time_delta)
+                if event.ui_element == a:
                     try:
                         vraag1.set_text(next(vragendict))
                         vraag1.update(time_delta)
