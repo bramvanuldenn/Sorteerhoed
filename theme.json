@@ -10,10 +10,15 @@
       "regular_path": "data/dum1.ttf"
     }
   },
-  "button": {
+  "deur": {
     "colours": {
-      "normal_bg": "#f2efdc",
-      "normal_text": "#000000"
+      "normal_bg": "#00000000",
+      "hovered_bg": "#00000000",
+      "normal_border": "#00000000",
+      "hovered_border": "#00000000",
+      "active_bg": "#00000000",
+      "normal_text": "#000000",
+      "active_border": "#00000000"
     },
     "font": {
       "name": "dumbledore1",
@@ -33,4 +38,5 @@
             "sliding_button_width": "15"
          }
   }
+
 }

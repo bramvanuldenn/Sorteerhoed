@@ -5,12 +5,13 @@ import pygame_gui
 pygame.init()
 pygame.display.set_caption("SORTEERHOED")
 font = pygame.font.Font("data\dum1.ttf", 10)
-start_surface = pygame.display.set_mode((800, 600))
-background = pygame.Surface((800, 600))
-backgroundimage = pygame.image.load("data\papyrus.png")
+start_surface = pygame.display.set_mode((1000, 700))
+background = pygame.Surface((1000, 700))
+backgroundimage = pygame.image.load("data\startdonker.png")
+backgroundlicht = pygame.image.load("data\startlicht.png")
 background.blit(backgroundimage, (0,0))
 # manager handled events, gui updates, refreshes etc
-manager = pygame_gui.UIManager((800, 600), "theme.json")
+manager = pygame_gui.UIManager((1000, 700), "theme.json")
 start = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 250), (100, 50)),
                                              text='Start',
                                              manager=manager
@@ -74,6 +75,15 @@ volumeslider = pygame_gui.elements.UIHorizontalSlider(relative_rect=pygame.Rect(
                                                       manager=manager,
                                                       start_value=10,
                                                       value_range=(0,100))
+
+doorbutton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((650, 100), (300, 600)),
+                                             text='',
+                                             manager=manager,
+                                             object_id='deur')
+
+
+
+
 
 def updateVragen(time_delta, vraag):
     nieuwe_antwoorden = iter(s.vragen[vraag].values())
@@ -152,6 +162,12 @@ while is_running:
                         showResultaat(time_delta)
             if event.user_type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
                 pygame.mixer.music.set_volume(volumeslider.current_value / 100)
+            if event.user_type == pygame_gui.UI_BUTTON_ON_HOVERED:
+                if event.ui_element == doorbutton:
+                    background.blit(backgroundlicht, (0,0))
+            if event.user_type == pygame_gui.UI_BUTTON_ON_UNHOVERED:
+                if event.ui_element == doorbutton:
+                    background.blit(backgroundimage, (0,0))
         if event.type == pygame.QUIT:
             is_running = False
 
