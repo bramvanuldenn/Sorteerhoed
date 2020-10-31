@@ -105,6 +105,7 @@ def showResultaat(time_delta):
             victory_banner.set_text(f"wow {afnemer.naam} wat een zieke toets heb je gemaakt jij bent echt eentje voor {i}")
             victory_banner.show()
             victory_banner.update(time_delta)
+    afnemer.schrijf_resultaat()
 
 
 
