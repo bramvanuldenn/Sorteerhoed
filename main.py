@@ -5,13 +5,13 @@ import pygame_gui
 pygame.init()
 pygame.display.set_caption("SORTEERHOED")
 font = pygame.font.Font("data\dum1.ttf", 10)
-start_surface = pygame.display.set_mode((800, 600))
-background = pygame.Surface((800, 600))
-backgroundimage = pygame.image.load("data\papyrus.png")
+start_surface = pygame.display.set_mode((1000, 700))
+background = pygame.Surface((1000, 700))
+backgroundimage = pygame.image.load("data\Sorteerhoed2donker.png")
 background.blit(backgroundimage, (0,0))
 # manager handled events, gui updates, refreshes etc
-manager = pygame_gui.UIManager((800, 600), "theme.json")
-start = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 250), (100, 50)),
+manager = pygame_gui.UIManager((1000, 700), "theme.json")
+start = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((475, 250), (100, 50)),
                                              text='Start',
                                              manager=manager
                                             )
@@ -32,45 +32,45 @@ pygame.mixer.music.load("data/seashanty2.mp3")
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(0)
 
-vraag1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 100), (700, 100)),
+vraag1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((150, 100), (700, 100)),
                                         text="Welkom! Vul je naam in en druk op start om te beginnen.",
                                         manager = manager)
 
-victory_banner = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 300), (700, 100)),
+victory_banner = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((150, 300), (700, 100)),
                                         text="",
                                         manager = manager)
 
 victory_banner.hide()
 
-textbox = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((200, 300), (400, 100)),
+textbox = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((300, 300), (400, 100)),
                                         manager=manager)
 
-a = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 250), (700, 50)),
+a = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 250), (700, 50)),
                                              text='aya',
                                              manager=manager,
                                              object_id='a')
 a.hide()
 
-b = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 300), (700, 50)),
+b = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 300), (700, 50)),
                                              text='aya',
                                              manager=manager,
                                              object_id='b')
 
 b.hide()
 
-c = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 350), (700, 50)),
+c = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 350), (700, 50)),
                                              text='aya',
                                              manager=manager,
                                              object_id='c')
 c.hide()
 
-d = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 400), (700, 50)),
+d = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 400), (700, 50)),
                                              text='aya',
                                              manager=manager,
                                              object_id='d')
 d.hide()
 
-volumeslider = pygame_gui.elements.UIHorizontalSlider(relative_rect=pygame.Rect((0, 570), (300, 30)),
+volumeslider = pygame_gui.elements.UIHorizontalSlider(relative_rect=pygame.Rect((50, 570), (300, 30)),
                                                       manager=manager,
                                                       start_value=10,
                                                       value_range=(0,100))
