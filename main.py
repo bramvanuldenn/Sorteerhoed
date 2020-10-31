@@ -136,6 +136,7 @@ while is_running:
                     b.show()
                     c.show()
                     d.show()
+                    backgroundimage = pygame.image.load("data/vraag_scherm.jpg")
                     try:
                         vraag = next(vragendict)
                         huidige_volgorde = updateVragen(time_delta, vraag)
