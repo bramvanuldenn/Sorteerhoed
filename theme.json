@@ -20,5 +20,17 @@
       "size": "18",
       "regular_path": "data/dum1.ttf"
     }
+  },
+
+  "horizontal_slider": {
+     "colours": {
+       "normal_bg": "#f2efdc"
+     },
+     "misc":
+         {
+            "shape": "rectangle",
+            "enable_arrow_buttons": "0",
+            "sliding_button_width": "15"
+         }
   }
 }

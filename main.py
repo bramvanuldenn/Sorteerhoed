@@ -24,12 +24,26 @@ s = classes.Systeem()
 s.scramble_antwoorden()
 s.scramble_vragen()
 vragendict = iter(s.vragen)
-tempAfnemer = classes.Afnemer('bram')
+afnemer = classes.Afnemer('placeholder')
 huidige_volgorde = {}
 
+pygame.mixer.init()
+pygame.mixer.music.load("data/seashanty2.mp3")
+pygame.mixer.music.play()
+pygame.mixer.music.set_volume(0)
+
 vraag1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 100), (700, 100)),
-                                        text="Welkom! Druk op start om te beginnen.",
+                                        text="Welkom! Vul je naam in en druk op start om te beginnen.",
                                         manager = manager)
+
+victory_banner = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 300), (700, 100)),
+                                        text="",
+                                        manager = manager)
+
+victory_banner.hide()
+
+textbox = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((200, 300), (400, 100)),
+                                        manager=manager)
 
 a = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 250), (700, 50)),
                                              text='aya',
@@ -55,6 +69,12 @@ d = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 400), (700, 50))
                                              manager=manager,
                                              object_id='d')
 d.hide()
+
+volumeslider = pygame_gui.elements.UIHorizontalSlider(relative_rect=pygame.Rect((0, 570), (300, 30)),
+                                                      manager=manager,
+                                                      start_value=10,
+                                                      value_range=(0,100))
+
 def updateVragen(time_delta, vraag):
     nieuwe_antwoorden = iter(s.vragen[vraag].values())
     keys_volgorde = list(s.vragen[vraag].keys())
@@ -72,6 +92,22 @@ def updateVragen(time_delta, vraag):
     c.update(time_delta)
     d.update(time_delta)
     return nieuwe_volgorde
+
+def showResultaat(time_delta):
+    a.hide()
+    b.hide()
+    c.hide()
+    d.hide()
+    vraag1.set_text("ewaja broer hier is je resultaat")
+    vraag1.update(time_delta)
+    for i in afnemer.scoredict:
+        if afnemer.scoredict[i] == max(afnemer.scoredict.values()):
+            victory_banner.set_text(f"wow {afnemer.naam} wat een zieke toets heb je gemaakt jij bent echt eentje voor {i}")
+            victory_banner.show()
+            victory_banner.update(time_delta)
+
+
+
 while is_running:
     # hier slaan we die timer waar ik het net over had op.
     # deze delta is eigenlijk hoe lang ons programma er over doet om door deze loop te lopen.
@@ -82,7 +118,9 @@ while is_running:
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 #on start
-                if event.ui_element == start:
+                if event.ui_element == start and textbox.text != "":
+                    afnemer.naam = textbox.text
+                    textbox.hide()
                     start.hide()
                     a.show()
                     b.show()
@@ -96,20 +134,23 @@ while is_running:
                     except StopIteration:
                         vraag1.set_text("geen vragen meer sorry lol")
                         vraag1.update(time_delta)
+                if event.ui_element == start and textbox.text == "":
+                    vraag1.set_text("Vergeet geen naam in te vullen!")
+
 
                 #on button update
                 if event.ui_object_id in antwoord_buttons:
-                    tempAfnemer.addto(huidige_volgorde[event.ui_object_id])
-                    print(tempAfnemer.scoredict)
+                    afnemer.addto(huidige_volgorde[event.ui_object_id])
+                    print(afnemer.naam, "-", afnemer.scoredict)
                     try:
                         vraag = next(vragendict)
                         huidige_volgorde = updateVragen(time_delta, vraag)
                         vraag1.set_text(vraag)
                         vraag1.update(time_delta)
                     except StopIteration:
-                        vraag1.set_text("geen vragen meer sorry lol")
-                        vraag1.update(time_delta)
-
+                        showResultaat(time_delta)
+            if event.user_type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
+                pygame.mixer.music.set_volume(volumeslider.current_value / 100)
         if event.type == pygame.QUIT:
             is_running = False
 
@@ -121,36 +162,3 @@ while is_running:
 
 
     pygame.display.update()
-
-
-
-
-
-
-
-#s = classes.Systeem()
-#inputNaam = str(input("Wat is je naam? "))
-#afnemer = classes.Afnemer(inputNaam)
-#print(afnemer.scoredict)
-#for i in s.vragen:
-#    print(i)
-#    print(s.vragen[i])
-#    a = {
-#        "a": 0,
-#        "b": 1,
-#        "c": 2,
-#        "d": 3
-#    }
-#    inputAntwoord = str(input()).lower()
-#    iterdict = iter(s.vragen[i])
-#
-#    if inputAntwoord in "abcd":
-#        val = a[inputAntwoord]
-#        print(val)
-#        for i in range(0, val):
-#            next(iterdict)
-#        a = (next(iterdict))
-#        print(a)
-#        afnemer.addto(a)
-#        print(afnemer.scoredict)
-#afnemer.schrijf_resultaat()
