@@ -10,6 +10,13 @@
       "regular_path": "data/dum1.ttf"
     }
   },
+
+  "vraag1": {
+    "colours": {
+      "dark_bg": "#00000000"
+    }
+  },
+
   "deur": {
     "colours": {
       "normal_bg": "#00000000",
@@ -24,6 +31,9 @@
       "name": "dumbledore1",
       "size": "18",
       "regular_path": "data/dum1.ttf"
+    },
+    "misc": {
+      "shadow_width": "0"
     }
   },
 

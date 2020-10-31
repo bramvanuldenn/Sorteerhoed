@@ -10,12 +10,10 @@ background = pygame.Surface((1000, 700))
 backgroundimage = pygame.image.load("data\startdonker.png")
 backgroundlicht = pygame.image.load("data\startlicht.png")
 background.blit(backgroundimage, (0,0))
+papierrol = pygame.image.load("data\papierrol.png")
+papierrol = pygame.transform.scale(papierrol, (800, 150))
 # manager handled events, gui updates, refreshes etc
 manager = pygame_gui.UIManager((1000, 700), "theme.json")
-start = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((350, 250), (100, 50)),
-                                             text='Start',
-                                             manager=manager
-                                            )
 
 # we cappen de framerate van de GUI om de resources die we nodig hebben te beperken.
 # ook gebruiken veel elementen timers, dus is het handig!
@@ -33,45 +31,46 @@ pygame.mixer.music.load("data/seashanty2.mp3")
 pygame.mixer.music.play()
 pygame.mixer.music.set_volume(0)
 
-vraag1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 100), (700, 100)),
-                                        text="Welkom! Vul je naam in en druk op start om te beginnen.",
-                                        manager = manager)
+vraag1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((150, 100), (700, 100)),
+                                        text="Welkom! Vul je naam in en druk op de deur om te beginnen.",
+                                        manager = manager,
+                                        object_id='vraag1')
 
-victory_banner = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((50, 300), (700, 100)),
+victory_banner = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((150, 300), (700, 100)),
                                         text="",
                                         manager = manager)
 
 victory_banner.hide()
 
-textbox = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((200, 300), (400, 100)),
+textbox = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((300, 300), (400, 100)),
                                         manager=manager)
 
-a = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 250), (700, 50)),
+a = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 250), (700, 50)),
                                              text='aya',
                                              manager=manager,
                                              object_id='a')
 a.hide()
 
-b = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 300), (700, 50)),
+b = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 300), (700, 50)),
                                              text='aya',
                                              manager=manager,
                                              object_id='b')
 
 b.hide()
 
-c = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 350), (700, 50)),
+c = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 350), (700, 50)),
                                              text='aya',
                                              manager=manager,
                                              object_id='c')
 c.hide()
 
-d = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((50, 400), (700, 50)),
+d = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 400), (700, 50)),
                                              text='aya',
                                              manager=manager,
                                              object_id='d')
 d.hide()
 
-volumeslider = pygame_gui.elements.UIHorizontalSlider(relative_rect=pygame.Rect((0, 570), (300, 30)),
+volumeslider = pygame_gui.elements.UIHorizontalSlider(relative_rect=pygame.Rect((50, 570), (300, 30)),
                                                       manager=manager,
                                                       start_value=10,
                                                       value_range=(0,100))
@@ -129,10 +128,10 @@ while is_running:
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 #on start
-                if event.ui_element == start and textbox.text != "":
+                if event.ui_element == doorbutton and textbox.text != "":
                     afnemer.naam = textbox.text
                     textbox.hide()
-                    start.hide()
+                    doorbutton.hide()
                     a.show()
                     b.show()
                     c.show()
@@ -145,7 +144,7 @@ while is_running:
                     except StopIteration:
                         vraag1.set_text("geen vragen meer sorry lol")
                         vraag1.update(time_delta)
-                if event.ui_element == start and textbox.text == "":
+                if event.ui_element == doorbutton and textbox.text == "":
                     vraag1.set_text("Vergeet geen naam in te vullen!")
 
 
@@ -175,6 +174,7 @@ while is_running:
         manager.process_events(event)
     manager.update(time_delta)
     start_surface.blit(background, (0, 0))
+    start_surface.blit(papierrol, (108, 72.5))
     manager.draw_ui(start_surface)
 
 
