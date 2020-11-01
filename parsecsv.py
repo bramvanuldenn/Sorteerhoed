@@ -29,6 +29,13 @@ def read_csv():
             returndict[row[0]] = row[1], row[2], row[3], row[4], row[5]
     return returndict
 
+def read_teksten():
+    returndict = {}
+    with open("data/teksten.csv", "r") as csvfile:
+        reader = csv.reader(csvfile)
+        for row in reader:
+            returndict[row[0]] = row[1]
+    return returndict
 
 def read_vragen():
     vragen = {}

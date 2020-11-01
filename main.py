@@ -11,7 +11,9 @@ backgroundimage = pygame.image.load("data\startdonker.png")
 backgroundlicht = pygame.image.load("data\startlicht.png")
 background.blit(backgroundimage, (0,0))
 papierrol = pygame.image.load("data\papierrol.png")
-papierrol = pygame.transform.scale(papierrol, (800, 150))
+papierrolvraag = pygame.transform.scale(papierrol, (800, 150))
+papierrolnaam = pygame.transform.scale(papierrol, (300, 200))
+papierrolantwoord = pygame.transform.scale(papierrol, (800, 50))
 # manager handled events, gui updates, refreshes etc
 manager = pygame_gui.UIManager((1000, 700), "theme.json")
 
@@ -19,13 +21,21 @@ manager = pygame_gui.UIManager((1000, 700), "theme.json")
 # ook gebruiken veel elementen timers, dus is het handig!
 clock = pygame.time.Clock()
 is_running = True
+started = False
+finished = False
 s = classes.Systeem()
 s.scramble_antwoorden()
 s.scramble_vragen()
 vragendict = iter(s.vragen)
 afnemer = classes.Afnemer('placeholder')
 huidige_volgorde = {}
-
+hpfont = pygame.font.Font("data/dum1.ttf", 25)
+logo_switcher = {
+    "bdm": pygame.image.load("data/BDM.png"),
+    "git": pygame.image.load("data/GIT.png"),
+    "se": pygame.image.load("data/SE.png"),
+    "fit": pygame.image.load("data/FIT.png")
+}
 pygame.mixer.init()
 pygame.mixer.music.load("data/seashanty2.mp3")
 pygame.mixer.music.play()
@@ -36,41 +46,41 @@ vraag1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((150, 100), (700,
                                         manager = manager,
                                         object_id='vraag1')
 
-victory_banner = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((150, 300), (700, 100)),
-                                        text="",
-                                        manager = manager)
+victory_banner = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((150, 300), (700, 100)),
+                                        manager = manager,
+                                        html_text="")
 
 victory_banner.hide()
 
-textbox = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((300, 300), (400, 100)),
+textbox = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((375, 335), (300, 100)),
                                         manager=manager)
 
-a = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 250), (700, 50)),
-                                             text='aya',
+a = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 225), (700, 50)),
+                                             text='',
                                              manager=manager,
                                              object_id='a')
 a.hide()
 
-b = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 300), (700, 50)),
-                                             text='aya',
+b = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 275), (700, 50)),
+                                             text='',
                                              manager=manager,
                                              object_id='b')
 
 b.hide()
 
-c = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 350), (700, 50)),
-                                             text='aya',
+c = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 325), (700, 50)),
+                                             text='',
                                              manager=manager,
                                              object_id='c')
 c.hide()
 
-d = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 400), (700, 50)),
-                                             text='aya',
+d = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 375), (700, 50)),
+                                             text='',
                                              manager=manager,
                                              object_id='d')
 d.hide()
 
-volumeslider = pygame_gui.elements.UIHorizontalSlider(relative_rect=pygame.Rect((50, 570), (300, 30)),
+volumeslider = pygame_gui.elements.UIHorizontalSlider(relative_rect=pygame.Rect((25, 650), (300, 30)),
                                                       manager=manager,
                                                       start_value=10,
                                                       value_range=(0,100))
@@ -79,8 +89,6 @@ doorbutton = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((650, 100), 
                                              text='',
                                              manager=manager,
                                              object_id='deur')
-
-
 
 
 
@@ -107,13 +115,11 @@ def showResultaat(time_delta):
     b.hide()
     c.hide()
     d.hide()
-    vraag1.set_text("ewaja broer hier is je resultaat")
-    vraag1.update(time_delta)
-    for i in afnemer.scoredict:
-        if afnemer.scoredict[i] == max(afnemer.scoredict.values()):
-            victory_banner.set_text(f"wow {afnemer.naam} wat een zieke toets heb je gemaakt jij bent echt eentje voor {i}")
-            victory_banner.show()
-            victory_banner.update(time_delta)
+    vraag1.hide()
+    victory_banner.html_text = f"{afnemer.naam}, {s.teksten[afnemer.return_hoogstescore()]}"
+    victory_banner.rebuild()
+    victory_banner.show()
+    victory_banner.update(time_delta)
     afnemer.schrijf_resultaat()
 
 
@@ -137,6 +143,7 @@ while is_running:
                     c.show()
                     d.show()
                     backgroundimage = pygame.image.load("data/vraag_scherm.jpg")
+                    started = True
                     try:
                         vraag = next(vragendict)
                         huidige_volgorde = updateVragen(time_delta, vraag)
@@ -159,6 +166,7 @@ while is_running:
                         vraag1.set_text(vraag)
                         vraag1.update(time_delta)
                     except StopIteration:
+                        finished = True
                         showResultaat(time_delta)
             if event.user_type == pygame_gui.UI_HORIZONTAL_SLIDER_MOVED:
                 pygame.mixer.music.set_volume(volumeslider.current_value / 100)
@@ -168,14 +176,31 @@ while is_running:
             if event.user_type == pygame_gui.UI_BUTTON_ON_UNHOVERED:
                 if event.ui_element == doorbutton:
                     background.blit(backgroundimage, (0,0))
+
+
         if event.type == pygame.QUIT:
             is_running = False
 
 
         manager.process_events(event)
+
     manager.update(time_delta)
     start_surface.blit(background, (0, 0))
-    start_surface.blit(papierrol, (108, 72.5))
+    if not started:
+        start_surface.blit(papierrolnaam, (375, 250))
+        start_surface.blit(papierrolvraag, (108, 72.5))
+    if started and not finished:
+        start_surface.blit(papierrolvraag, (108, 72.5))
+        start_surface.blit(papierrolantwoord, (105, 225))
+        start_surface.blit(papierrolantwoord, (105, 275))
+        start_surface.blit(papierrolantwoord, (105, 325))
+        start_surface.blit(papierrolantwoord, (105, 375))
+    if finished:
+        start_surface.blit(papierrolnaam, (60, 70))
+        start_surface.blit(logo_switcher[afnemer.return_hoogstescore()], (130, 100))
+
+
+
     manager.draw_ui(start_surface)
 
 

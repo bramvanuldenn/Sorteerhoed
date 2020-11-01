@@ -26,6 +26,8 @@ class Afnemer:
     # Schrijft het huidige resultaat op in het CSV bestand.
     def schrijf_resultaat(self):
         parsecsv.write_csv(self.scoredict, self.naam)
+    def return_hoogstescore(self):
+        return max(self.scoredict, key=self.scoredict.get)
 
 
 # De "Toetsresultaat" class wordt gebruikt om oude toetsresultaten op te halen.
@@ -53,6 +55,7 @@ class Toetsresultaat:
 class Systeem:
     def __init__(self):
         self.vragen = parsecsv.read_vragen()
+        self.teksten = parsecsv.read_teksten()
         self.resultaten = {}
         b = 0
         parseddata = parsecsv.read_csv()
@@ -66,6 +69,7 @@ class Systeem:
             }
             self.resultaten[b] = Toetsresultaat(scoredict, a[0], i)
             b += 1
+
 
     def scramble_antwoorden(self):
         for vraagKey in self.vragen:

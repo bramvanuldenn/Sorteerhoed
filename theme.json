@@ -10,13 +10,11 @@
       "regular_path": "data/dum1.ttf"
     }
   },
-
   "vraag1": {
     "colours": {
       "dark_bg": "#00000000"
     }
   },
-
   "deur": {
     "colours": {
       "normal_bg": "#00000000",
@@ -36,17 +34,69 @@
       "shadow_width": "0"
     }
   },
-
   "horizontal_slider": {
-     "colours": {
-       "normal_bg": "#f2efdc"
-     },
-     "misc":
-         {
-            "shape": "rectangle",
-            "enable_arrow_buttons": "0",
-            "sliding_button_width": "15"
-         }
+    "colours": {
+      "normal_bg": "#f2efdc"
+    },
+    "misc": {
+      "shape": "rectangle",
+      "enable_arrow_buttons": "0",
+      "sliding_button_width": "15"
+    }
+  },
+  "text_entry_line": {
+    "colours": {
+      "dark_bg": "#00000000",
+      "hovered_bg": "#00000000",
+      "normal_border": "#00000000",
+      "hovered_border": "#00000000",
+      "active_bg": "#00000000",
+      "normal_text": "#000000",
+      "active_border": "#00000000"
+    },
+    "font": {
+      "name": "dumbledore1",
+      "size": "25",
+      "regular_path": "data/dum1.ttf"
+    },
+    "misc": {
+      "padding": "35,2",
+      "shadow_width": "0"
+    }
+  },
+  "button": {
+    "colours": {
+      "normal_bg": "#00000000",
+      "hovered_bg": "#00000000",
+      "normal_border": "#00000000",
+      "hovered_border": "#00000000",
+      "active_bg": "#00000000",
+      "normal_text": "#000000",
+      "active_border": "#00000000"
+    },
+    "font": {
+      "name": "dumbledore1",
+      "size": "18",
+      "regular_path": "data/dum1.ttf"
+    },
+    "misc": {
+      "shadow_width": "0"
+    }
+  },
+  "textbox": {
+    "colours": {
+      "dark_bg": "#00000000",
+      "hovered_bg": "#00000000",
+      "normal_border": "#00000000",
+      "hovered_border": "#00000000",
+      "active_bg": "#00000000",
+      "normal_text": "#000000",
+      "active_border": "#00000000"
+    },
+    "font": {
+      "name": "dumbledore1",
+      "size": "25",
+      "regular_path": "data/dum1.ttf"
+    }
   }
-
 }
