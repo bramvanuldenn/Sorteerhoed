@@ -1,4 +1,4 @@
-import classes
+from Sorteerhoed import classes
 
 s = classes.Systeem()
 inputNaam = str(input("Wat is je naam? "))
