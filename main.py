@@ -11,9 +11,11 @@ backgroundimage = pygame.image.load("data\startdonker.png")
 backgroundlicht = pygame.image.load("data\startlicht.png")
 background.blit(backgroundimage, (0,0))
 papierrol = pygame.image.load("data\papierrol.png")
+tekstwolk = pygame.image.load("data/tekstwolk2.png")
 papierrolvraag = pygame.transform.scale(papierrol, (800, 150))
 papierrolnaam = pygame.transform.scale(papierrol, (300, 200))
 papierrolantwoord = pygame.transform.scale(papierrol, (800, 50))
+papierrolresultaten = pygame.transform.scale(papierrol, (500, 250))
 # manager handled events, gui updates, refreshes etc
 manager = pygame_gui.UIManager((1000, 700), "theme.json")
 
@@ -23,6 +25,7 @@ clock = pygame.time.Clock()
 is_running = True
 started = False
 finished = False
+resultatenshown = False
 s = classes.Systeem()
 s.scramble_antwoorden()
 s.scramble_vragen()
@@ -38,22 +41,32 @@ logo_switcher = {
 }
 pygame.mixer.init()
 pygame.mixer.music.load("data/seashanty2.mp3")
-pygame.mixer.music.play()
-pygame.mixer.music.set_volume(0)
+pygame.mixer.music.play(-1)
+pygame.mixer.music.set_volume(0.1)
 
 vraag1 = pygame_gui.elements.UILabel(relative_rect=pygame.Rect((150, 100), (700, 100)),
                                         text="Welkom! Vul je naam in en druk op de deur om te beginnen.",
                                         manager = manager,
                                         object_id='vraag1')
 
-victory_banner = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((150, 300), (700, 100)),
+victory_banner = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((150, 287), (700, 200)),
                                         manager = manager,
                                         html_text="")
-
 victory_banner.hide()
+
+eerdere_resultaten = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((10, 450), (500, 200)),
+                                        manager = manager,
+                                        html_text='')
+
+eerdere_resultaten.hide()
 
 textbox = pygame_gui.elements.UITextEntryLine(relative_rect=pygame.Rect((375, 335), (300, 100)),
                                         manager=manager)
+
+toonresultaten = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((325, 646), (160, 35)),
+                                             text='Toon eerdere resultaten',
+                                             manager=manager,
+                                             object_id='toonresultaten')
 
 a = pygame_gui.elements.UIButton(relative_rect=pygame.Rect((150, 225), (700, 50)),
                                              text='',
@@ -116,12 +129,18 @@ def showResultaat(time_delta):
     c.hide()
     d.hide()
     vraag1.hide()
+    toonresultaten.show()
     victory_banner.html_text = f"{afnemer.naam}, {s.teksten[afnemer.return_hoogstescore()]}"
     victory_banner.rebuild()
     victory_banner.show()
     victory_banner.update(time_delta)
     afnemer.schrijf_resultaat()
 
+def showEerdereResultaten():
+    s.updateResultaten()
+    eerdere_resultaten.html_text = s.return_resultaten_als_string()
+    eerdere_resultaten.rebuild()
+    eerdere_resultaten.show()
 
 
 while is_running:
@@ -134,10 +153,20 @@ while is_running:
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 #on start
+                if event.ui_element == toonresultaten:
+                    if not resultatenshown:
+                        showEerdereResultaten()
+                        resultatenshown = True
+                    else:
+                        eerdere_resultaten.hide()
+                        resultatenshown = False
                 if event.ui_element == doorbutton and textbox.text != "":
                     afnemer.naam = textbox.text
                     textbox.hide()
                     doorbutton.hide()
+                    toonresultaten.hide()
+                    eerdere_resultaten.hide()
+                    resultatenshown = False
                     a.show()
                     b.show()
                     c.show()
@@ -197,7 +226,10 @@ while is_running:
         start_surface.blit(papierrolantwoord, (105, 375))
     if finished:
         start_surface.blit(papierrolnaam, (60, 70))
-        start_surface.blit(logo_switcher[afnemer.return_hoogstescore()], (130, 100))
+        start_surface.blit(tekstwolk, (130, 280))
+        start_surface.blit(logo_switcher[afnemer.return_hoogstescore()], (140, 105))
+    if resultatenshown:
+        start_surface.blit(papierrolresultaten, (-20, 425))
 
 
 

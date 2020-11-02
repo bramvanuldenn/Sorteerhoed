@@ -27,6 +27,7 @@ def read_csv():
         next(reader)
         for row in reader:
             returndict[row[0]] = row[1], row[2], row[3], row[4], row[5]
+    csvfile.close()
     return returndict
 
 def read_teksten():

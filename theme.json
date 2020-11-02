@@ -83,7 +83,7 @@
       "shadow_width": "0"
     }
   },
-  "textbox": {
+  "text_box": {
     "colours": {
       "dark_bg": "#00000000",
       "hovered_bg": "#00000000",
@@ -97,6 +97,38 @@
       "name": "dumbledore1",
       "size": "25",
       "regular_path": "data/dum1.ttf"
+    },
+    "misc": {
+      "shadow_width": "0"
     }
-  }
+  },
+  "horizontal_slider.button": {
+    "colours": {
+      "normal_bg": "#FFFFFF",
+      "active_bg": "#FFFFFF",
+      "hovered_bg": "#FFFFFF"
+    }
+  },
+  "toonresultaten": {
+    "colours": {
+      "normal_bg": "#25292e",
+      "active_bg": "#25292e",
+      "hovered_bg": "#25292e"
+    },
+    "misc": {
+      "border_width": "1"
+    }
+  },
+  "text_box.vertical_scroll_bar":
+     {
+         "colours":
+         {
+            "dark_bg": "#00000000"
+         },
+         "misc":
+         {
+           "enable_arrow_buttons": "0",
+           "border_width": "0"
+         }
+     }
 }

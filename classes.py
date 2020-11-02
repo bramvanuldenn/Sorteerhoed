@@ -45,6 +45,8 @@ class Toetsresultaat:
     def return_datum(self):
         return self.datum.strftime("%d/%m/%Y %H:%M:%S")
 
+    def return_hoogstescore(self):
+        return max(self.scoredict, key=self.scoredict.get)
     # De systeem class onderhoudt als het ware de rest van het programma.
     # Het hanteert bijvoorbeeld ook de formulier vragen en antwoorden,
     # en kan ze ook scramblen.
@@ -70,6 +72,25 @@ class Systeem:
             self.resultaten[b] = Toetsresultaat(scoredict, a[0], i)
             b += 1
 
+    def updateResultaten(self):
+        b = 0
+        parseddata = parsecsv.read_csv()
+        for i in parseddata:
+            a = parseddata[i]
+            scoredict = {
+                "BDM": a[1],
+                "FIT": a[2],
+                "SE": a[3],
+                "GIT": a[4],
+            }
+            self.resultaten[b] = Toetsresultaat(scoredict, a[0], i)
+            b += 1
+    def return_resultaten_als_string(self):
+        returnstring = ""
+        for i in self.resultaten:
+            resultaat = self.resultaten[i]
+            returnstring += f"{i} {resultaat.naam} - {resultaat.return_hoogstescore()} - {resultaat.datum}<br>"
+        return returnstring
 
     def scramble_antwoorden(self):
         for vraagKey in self.vragen:
@@ -88,5 +109,4 @@ class Systeem:
         for i in keylist:
             scrambled.update({i: self.vragen[i]})
         self.vragen = scrambled
-
 
