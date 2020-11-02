@@ -72,6 +72,7 @@
       "hovered_border": "#00000000",
       "active_bg": "#00000000",
       "normal_text": "#000000",
+      "hovered_text": "#333333",
       "active_border": "#00000000"
     },
     "font": {
@@ -95,7 +96,7 @@
     },
     "font": {
       "name": "dumbledore1",
-      "size": "25",
+      "size": "20",
       "regular_path": "data/dum1.ttf"
     },
     "misc": {
@@ -113,7 +114,8 @@
     "colours": {
       "normal_bg": "#25292e",
       "active_bg": "#25292e",
-      "hovered_bg": "#25292e"
+      "hovered_bg": "#25292e",
+      "hovered_text": "#ffffff"
     },
     "misc": {
       "border_width": "1"

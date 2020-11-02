@@ -85,11 +85,15 @@ class Systeem:
             }
             self.resultaten[b] = Toetsresultaat(scoredict, a[0], i)
             b += 1
+
     def return_resultaten_als_string(self):
         returnstring = ""
         for i in self.resultaten:
             resultaat = self.resultaten[i]
-            returnstring += f"{i} {resultaat.naam} - {resultaat.return_hoogstescore()} - {resultaat.datum}<br>"
+            if i < 10:
+                returnstring += f"{i}  {resultaat.naam} - {resultaat.return_hoogstescore()} - {resultaat.datum}<br>"
+            else:
+                returnstring += f"{i} {resultaat.naam} - {resultaat.return_hoogstescore()} - {resultaat.datum}<br>"
         return returnstring
 
     def scramble_antwoorden(self):

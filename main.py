@@ -54,7 +54,7 @@ victory_banner = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((150, 2
                                         html_text="")
 victory_banner.hide()
 
-eerdere_resultaten = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((10, 450), (500, 200)),
+eerdere_resultaten = pygame_gui.elements.UITextBox(relative_rect=pygame.Rect((20, 450), (500, 200)),
                                         manager = manager,
                                         html_text='')
 
@@ -123,7 +123,15 @@ def updateVragen(time_delta, vraag):
     d.update(time_delta)
     return nieuwe_volgorde
 
+def zeldageluid():
+    pygame.mixer.music.unload()
+    pygame.mixer.music.load("data/zeldachest.mp3")
+    pygame.mixer.music.play()
+    pygame.mixer.music.set_volume(0.1)
+
 def showResultaat(time_delta):
+    zeldageluid()
+    pygame.time.wait(7700)
     a.hide()
     b.hide()
     c.hide()
@@ -141,6 +149,8 @@ def showEerdereResultaten():
     eerdere_resultaten.html_text = s.return_resultaten_als_string()
     eerdere_resultaten.rebuild()
     eerdere_resultaten.show()
+
+
 
 
 while is_running:
@@ -216,7 +226,7 @@ while is_running:
     manager.update(time_delta)
     start_surface.blit(background, (0, 0))
     if not started:
-        start_surface.blit(papierrolnaam, (375, 250))
+        start_surface.blit(papierrolnaam, (335, 250))
         start_surface.blit(papierrolvraag, (108, 72.5))
     if started and not finished:
         start_surface.blit(papierrolvraag, (108, 72.5))
